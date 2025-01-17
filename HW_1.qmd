@@ -13,24 +13,45 @@ execute:
   message: false
   warning: false
 ---
+# Homework 1
 
-## Quarto
+```{r, setup}
+library(dplyr)
+library(here)
+library(readr)
+library(tidyverse)
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
+algae <- read_table("algaeBloom.txt", col_names= c('season', 'size', 'speed', 'mxPH', 'mnO2', 'Cl', 'NO3', 'NH4', 'oPO4','PO4','Chla','a1','a2','a3','a4','a5','a6','a7'),
+                     na="XXXXXXX")
+glimpse(algae)
 ```
 
-You can add options to executable code like this
-
+## 1 Descriptive Summary Statistics
+### a) 
 ```{r}
-#| echo: false
-2 * 2
+algae %>% group_by(season) %>% summarise(length(size))
+```
+### b) Yes, there are 33 missing values. 
+```{r}
+na_count <-sapply(algae, function(y) sum(length(which(is.na(y)))))
+
+data.frame(na_count)
+sum(na_count)
+
+mean(algae$mxPH)
+
+means <- sapply(algae, function(q) mean())
+
+summarise(algae, mean = mean(mxPH, mnO2, Cl, NO3, NH4, oPO4, PO4, Chla))
+
+
+chemicals <- algae %>% select(mxPH, mnO2, Cl, NO3, NH4, oPO4, PO4, Chla)
+colMeans(chemicals,)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+
+## 4. a)
+
+## 5. 
+
+Bias()
