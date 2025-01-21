@@ -31,22 +31,56 @@ glimpse(algae)
 ```{r}
 algae %>% group_by(season) %>% summarise(length(size))
 ```
-### b) Yes, there are 33 missing values. 
+### b) 
+Yes, there are 33 missing values. For most of the chemicals (Cl, NO3, NH4, oPO4, PO4, Chla), the variances are significantly larger than the means, often several times or several orders of magnitude larger. However, for mxPH and mnO2, the means are significantly larger than the variance. Yet for all of the chemicals, the means and variances are significantly different.  
 ```{r}
+options(scipen=999)
+
 na_count <-sapply(algae, function(y) sum(length(which(is.na(y)))))
 
 data.frame(na_count)
 sum(na_count)
 
-mean(algae$mxPH)
-
-means <- sapply(algae, function(q) mean())
-
-summarise(algae, mean = mean(mxPH, mnO2, Cl, NO3, NH4, oPO4, PO4, Chla))
-
-
 chemicals <- algae %>% select(mxPH, mnO2, Cl, NO3, NH4, oPO4, PO4, Chla)
-colMeans(chemicals,)
+chems <- c("mxPH", "mnO2", "Cl", "NO3", "NH4", "oPO4", "PO4", "Chla")
+means <- c(colMeans(chemicals, na.rm = TRUE))
+means_df <- data.frame(means, chems)
+
+vars <- c(sapply(chemicals, var, na.rm = TRUE))
+vars_df <- data.frame(vars, chems)
+
+chems <- left_join(vars_df, means_df) %>% select(chems, means, vars)
+
+kableExtra::kable(chems)
+```
+### c) 
+The median and MAD are much more similar for almost all of the chemicals compared to the mean and (confuseddddddd)
+```{r}
+medians <- sapply(chemicals, median, na.rm = TRUE)
+medians_df <- data.frame(medians, chems)
+
+mxPH_mad <- mad(chemicals$mxPH, na.rm = TRUE)
+mnO2_mad <- mad(chemicals$mnO2, na.rm = TRUE)
+Cl_mad <- mad(chemicals$Cl, na.rm = TRUE)
+NO3_mad <- mad(chemicals$NO3, na.rm = TRUE)
+NH4_mad <- mad(chemicals$NH4, na.rm = TRUE)
+oPO4_mad <- mad(chemicals$oPO4, na.rm = TRUE)
+PO4_mad <- mad(chemicals$PO4, na.rm = TRUE)
+Chla_mad <- mad(chemicals$Chla, na.rm = TRUE)
+
+mad <- data.frame(chems, mads = c(mxPH_mad,mnO2_mad,Cl_mad,NO3_mad,NH4_mad,oPO4_mad,PO4_mad,Chla_mad)) 
+
+all <- right_join(mad, medians_df)
+```
+
+## 2. 
+
+### a) 
+(lost on how to get this to show probabilities)
+```{r}
+ggplot(chemicals, aes(mxPH))+
+  geom_histogram() +
+  ggtitle("Histogram of mxPH")
 ```
 
 
