@@ -36,11 +36,6 @@ Yes, there are 33 missing values. For most of the chemicals (Cl, NO3, NH4, oPO4,
 ```{r}
 options(scipen=999)
 
-na_count <-sapply(algae, function(y) sum(length(which(is.na(y)))))
-
-data.frame(na_count)
-sum(na_count)
-
 chemicals <- algae %>% select(mxPH, mnO2, Cl, NO3, NH4, oPO4, PO4, Chla)
 chems <- c("mxPH", "mnO2", "Cl", "NO3", "NH4", "oPO4", "PO4", "Chla")
 means <- c(colMeans(chemicals, na.rm = TRUE))
@@ -55,6 +50,8 @@ kableExtra::kable(chems)
 ```
 ### c) 
 The median and MAD are much more similar for almost all of the chemicals compared to the mean and (confuseddddddd)
+
+Lower variance- median and mad more similar
 ```{r}
 medians <- sapply(chemicals, median, na.rm = TRUE)
 medians_df <- data.frame(medians, chems)
@@ -76,11 +73,36 @@ all <- right_join(mad, medians_df)
 ## 2. 
 
 ### a) 
-(lost on how to get this to show probabilities)
+The distribution is skewed left
 ```{r}
-ggplot(chemicals, aes(mxPH))+
+ggplot(chemicals, aes(mxPH, after_stat(density)))+
   geom_histogram() +
   ggtitle("Histogram of mxPH")
+
+```
+```{r}
+ggplot(algae, aes(mxPH))+
+  geom_histogram(aes(y = stat(density))) +
+  geom_density() +
+  geom_rug() +
+  ggtitle("Histogram of mxPH")
+```
+### c) 
+Medium speeds of a4 seem to have a larger variance than the other two speeds, with low speeds having the lowest variance. All three speeds seem to have similar lower quartiles and medians, both of which are close to zero. 
+```{r}
+a4_df <- algae %>% select(speed, a4) %>% group_by(speed)
+
+ggplot(a4_df, aes(a4, speed)) + geom_boxplot() +
+  ggtitle("A conditioned Boxplot of Algal a4")
+```
+
+
+## 3. a)
+```{r}
+na_count <-sapply(algae, function(y) sum(length(which(is.na(y)))))
+
+data.frame(na_count)
+sum(na_count)
 ```
 
 
