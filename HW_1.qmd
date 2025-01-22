@@ -97,7 +97,8 @@ ggplot(a4_df, aes(a4, speed)) + geom_boxplot() +
 ```
 
 
-## 3. a)
+## 3. a) 
+There are 33 missing values. Season, size, and speed have 0 missing values; mxPH has 1, mnO2, NO3, NH4, oPO4, and PO4 have 2; and Cl has 10 missing values. 
 ```{r}
 na_count <-sapply(algae, function(y) sum(length(which(is.na(y)))))
 
@@ -106,7 +107,7 @@ sum(na_count)
 ```
 
 
-## 4. a)
+## 4. a) 
 
 ## 5. 
 
