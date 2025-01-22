@@ -13,6 +13,7 @@ execute:
   message: false
   warning: false
 ---
+
 # Homework 1
 
 ```{r, setup}
@@ -27,12 +28,17 @@ glimpse(algae)
 ```
 
 ## 1 Descriptive Summary Statistics
-### a) 
+
+### a)
+
 ```{r}
 algae %>% group_by(season) %>% summarise(length(size))
 ```
-### b) 
-Yes, there are 33 missing values. For most of the chemicals (Cl, NO3, NH4, oPO4, PO4, Chla), the variances are significantly larger than the means, often several times or several orders of magnitude larger. However, for mxPH and mnO2, the means are significantly larger than the variance. Yet for all of the chemicals, the means and variances are significantly different.  
+
+### b)
+
+Yes, there are 33 missing values. For most of the chemicals (Cl, NO3, NH4, oPO4, PO4, Chla), the variances are significantly larger than the means, often several times or several orders of magnitude larger. However, for mxPH and mnO2, the means are significantly larger than the variance. Yet for all of the chemicals, the means and variances are significantly different.
+
 ```{r}
 options(scipen=999)
 
@@ -48,10 +54,13 @@ chems <- left_join(vars_df, means_df) %>% select(chems, means, vars)
 
 kableExtra::kable(chems)
 ```
-### c) 
+
+### c)
+
 The median and MAD are much more similar for almost all of the chemicals compared to the mean and (confuseddddddd)
 
 Lower variance- median and mad more similar
+
 ```{r}
 medians <- sapply(chemicals, median, na.rm = TRUE)
 medians_df <- data.frame(medians, chems)
@@ -70,16 +79,19 @@ mad <- data.frame(chems, mads = c(mxPH_mad,mnO2_mad,Cl_mad,NO3_mad,NH4_mad,oPO4_
 all <- right_join(mad, medians_df)
 ```
 
-## 2. 
+## 2.
 
-### a) 
+### a)
+
 The distribution is skewed left
+
 ```{r}
 ggplot(chemicals, aes(mxPH, after_stat(density)))+
   geom_histogram() +
   ggtitle("Histogram of mxPH")
 
 ```
+
 ```{r}
 ggplot(algae, aes(mxPH))+
   geom_histogram(aes(y = stat(density))) +
@@ -87,8 +99,11 @@ ggplot(algae, aes(mxPH))+
   geom_rug() +
   ggtitle("Histogram of mxPH")
 ```
-### c) 
-Medium speeds of a4 seem to have a larger variance than the other two speeds, with low speeds having the lowest variance. All three speeds seem to have similar lower quartiles and medians, both of which are close to zero. 
+
+### c)
+
+Medium speeds of a4 seem to have a larger variance than the other two speeds, with low speeds having the lowest variance. All three speeds seem to have similar lower quartiles and medians, both of which are close to zero.
+
 ```{r}
 a4_df <- algae %>% select(speed, a4) %>% group_by(speed)
 
@@ -106,9 +121,40 @@ data.frame(na_count)
 sum(na_count)
 ```
 
+## 4. a)
 
-## 4. a) 
-
-## 5. 
+## 5.
 
 Bias()
+
+## 7.
+
+### 1)
+
+Let $x = \begin{bmatrix} x_1\\ x_2\\ .. \\ x_p\\ \end{bmatrix}$ and $y = \begin{bmatrix} y_1\\ y_2\\ .. \\ y_p\\ \end{bmatrix}$. Therefore, $x-y = \begin{bmatrix} x_1 - y_1\\ x_2 - y_2\\ .. \\ x_p - y_p\\ \end{bmatrix}$.
+
+$\|x-y\|_2$ = $\sqrt{\sum_{i=1}^{p} \left ( x_i -y_i\right )^2}$
+
+Law of Positivity: Since this equation is the square root of a sum of positive numbers, $\|x-y\|_2 \geq 0$ holds, it is always positive
+
+Law of symmetry: $\|x-y\|_2$ = 0 when all $x_i = y_i$ is true, which is the case only when $x=y$.
+
+$d(x,y) = \|x-y\|_2$ = $\sqrt{\sum_{i=1}^{p} \left ( x_i -y_i\right )^2}$
+
+$d(y,x) = \|y-x\|_2$ = $\sqrt{\sum_{i=1}^{p} \left ( y_i -x_i\right )^2}$
+
+For every $x_i, y_i$ pair, $\left | x_i - y_i \right | = \left | y_i - x_i \right |$.
+
+Hence, $\sqrt{\sum_{i=1}^{p} \left ( x_i -y_i\right )^2} = \sqrt{\sum_{i=1}^{p} \left ( y_i -x_i\right )^2}$.
+
+It shows, $d(x,y) = d(y,x)$
+
+Triangle inequality:
+
+Let,
+
+$z = \begin{bmatrix} z_1\\ z_2\\ .. \\ z_p\\ \end{bmatrix}$
+
+Hence,
+
+$\|z\|_2$ = $\sqrt{\sum_{i=1}^{p} z_1^2 +z_2^2 + z_3^2 + ...+z_p^2}$
