@@ -111,10 +111,12 @@ ggplot(a4_df, aes(a4, speed)) + geom_boxplot() +
   ggtitle("A conditioned Boxplot of Algal a4")
 ```
 
+## 3.
 
-## 3. 
-### a) 
-There are 33 missing values. Season, size, and speed have 0 missing values; mxPH has 1, mnO2, NO3, NH4, oPO4, and PO4 have 2; and Cl has 10 missing values. 
+### a)
+
+There are 33 missing values. Season, size, and speed have 0 missing values; mxPH has 1, mnO2, NO3, NH4, oPO4, and PO4 have 2; and Cl has 10 missing values.
+
 ```{r}
 na_count <-sapply(algae, function(y) sum(length(which(is.na(y)))))
 
@@ -123,11 +125,11 @@ sum(na_count)
 ```
 
 ### b)
+
 ```{r}
 nas <- is.na(algae)
 algae.del <- algae %>% filter(algae != NA)
 ```
-
 
 ## 4. a)
 
@@ -143,7 +145,7 @@ Let $x = \begin{bmatrix} x_1\\ x_2\\ .. \\ x_p\\ \end{bmatrix}$ and $y = \begin{
 
 $\|x-y\|_2$ = $\sqrt{\sum_{i=1}^{p} \left ( x_i -y_i\right )^2}$
 
-Law of Positivity: Since this equation is the square root of a sum of positive numbers, $\|x-y\|_2 \geq 0$ holds, it is always positive
+Law of Positivity: Since this equation is the square root of a sum of non-negative numbers, by definition $\|x-y\|_2 \geq 0$ is true, it is always positive
 
 Law of symmetry: $\|x-y\|_2$ = 0 when all $x_i = y_i$ is true, which is the case only when $x=y$.
 
@@ -166,3 +168,17 @@ $z = \begin{bmatrix} z_1\\ z_2\\ .. \\ z_p\\ \end{bmatrix}$
 Hence,
 
 $\|z\|_2$ = $\sqrt{\sum_{i=1}^{p} z_1^2 +z_2^2 + z_3^2 + ...+z_p^2}$
+
+We need to show
+
+$||x-z||_2$ $\leq$ $||x-y||_2 + ||y-z||_2$
+
+Taking $a = x-y$ and $b = y-z$ , we can use Schwarz inequality to show that $||a+b||_2 \leq ||a||_2 + ||b||_2$ which gives us
+
+$d(x,z) \leq d(x,y) + d(y,z)$ and hence follows the law of triangle inequality
+
+### 2)
+
+By definition, $||x||_{\infty}$ = $max_i (|x|_i)$
+
+Therefore, $||x-y||_{\infty}$ = $max_i (|x_i-y_i|)$
