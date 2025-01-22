@@ -125,10 +125,30 @@ sum(na_count)
 ```
 
 ### b)
-
+There are 18 columns and 184 rows, so there are 3312 observations once the NAs are removed. 
 ```{r}
 nas <- is.na(algae)
-algae.del <- algae %>% filter(algae != NA)
+algae.del <- algae %>% 
+  filter(!is.na(season)) %>% 
+  filter(!is.na(size)) %>% 
+  filter(!is.na(speed)) %>% 
+  filter(!is.na(mxPH)) %>% 
+  filter(!is.na(mnO2)) %>% 
+  filter(!is.na(Cl)) %>% 
+  filter(!is.na(NO3)) %>% 
+  filter(!is.na(NH4)) %>% 
+  filter(!is.na(oPO4)) %>% 
+  filter(!is.na(PO4)) %>% 
+  filter(!is.na(Chla)) %>% 
+  filter(!is.na(a1)) %>% 
+  filter(!is.na(a2)) %>% 
+  filter(!is.na(a3)) %>% 
+  filter(!is.na(a4)) %>% 
+  filter(!is.na(a5)) %>% 
+  filter(!is.na(a6)) %>% 
+  filter(!is.na(a7))
+
+glimpse(algae.del)
 ```
 
 ## 4. a)
