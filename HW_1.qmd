@@ -125,7 +125,7 @@ sum(na_count)
 ### b)
 ```{r}
 nas <- is.na(algae)
-algae.del <- algae %>% filter(is.na())
+algae.del <- algae %>% filter(algae != NA)
 ```
 
 
