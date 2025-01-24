@@ -60,7 +60,7 @@ kableExtra::kable(chems)
 
 ### c)
 
-The chemicals with lower overall variance values tend to have means and medians that are more similar than the chemicals with much higher variance values. Also, when sorted in order of smallest to largest variance values, the MAD values tend to follow almost the exact same pattern of smallest to largest, indicating how both variance and MAD show the spread of the data.
+The chemicals with lower overall variance values tend to have means and medians that are more similar than the chemicals with much higher variance values. Also, when sorted in order of smallest to largest variance values, the MAD values tend to follow almost the exact same pattern of smallest to largest, indicating how both variance and MAD show the spread of the data. A discrepency in the mad and median values can be used an indicator of skewed data in the distribution of the chemicals, or the presence of outliers in the data.
 
 ```{r}
 medians <- sapply(chemicals, median, na.rm = TRUE)
