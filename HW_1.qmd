@@ -1,6 +1,7 @@
 ---
 title: "Homework_1"
 author: "Shadman Amin & Lily Heidger"
+date: "1/23/25"
 format: 
   html:
     code-fold: show
@@ -30,7 +31,7 @@ glimpse(algae)
 ## 1 Descriptive Summary Statistics
 
 ### a)
-
+Autumn has 40 observations, Spring has 53, Summer has 45, and Winter has 62. 
 ```{r}
 algae %>% group_by(season) %>% summarise(length(size))
 ```
@@ -57,10 +58,7 @@ kableExtra::kable(chems)
 
 ### c)
 
-The median and MAD are much more similar for almost all of the chemicals compared to the mean and (confuseddddddd)
-
-Lower variance- median and mad more similar
-
+The chemicals with lower overall variance values tend to have means and medians that are more similar than the chemicals with much higher variance values. Also, when sorted in order of smallest to largest variance values, the MAD values tend to follow almost the exact same pattern of smallest to largest, indicating how both variance and MAD show the spread of the data.  
 ```{r}
 medians <- sapply(chemicals, median, na.rm = TRUE)
 medians_df <- data.frame(medians, chems)
@@ -77,26 +75,29 @@ Chla_mad <- mad(chemicals$Chla, na.rm = TRUE)
 mad <- data.frame(chems, mads = c(mxPH_mad,mnO2_mad,Cl_mad,NO3_mad,NH4_mad,oPO4_mad,PO4_mad,Chla_mad)) 
 
 all <- right_join(mad, medians_df)
+print(all)
 ```
 
-## 2.
+## 2. Data Visualization
 
 ### a)
 
-The distribution is skewed slightly 
+The distribution is skewed slightly left, with a normal-appearing shape. 
 
 ```{r}
 ggplot(chemicals, aes(mxPH, after_stat(density)))+
   geom_histogram() +
+  ylab("probability") +
   ggtitle("Histogram of mxPH")
 
 ```
-
+### b)
 ```{r}
 ggplot(algae, aes(mxPH))+
   geom_histogram(aes(y = stat(density))) +
   geom_density() +
   geom_rug() +
+  ylab("probability")
   ggtitle("Histogram of mxPH")
 ```
 
@@ -111,7 +112,7 @@ ggplot(a4_df, aes(a4, speed)) + geom_boxplot() +
   ggtitle("A conditioned Boxplot of Algal a4")
 ```
 
-## 3.
+## 3. Dealing with missing values
 
 ### a)
 
