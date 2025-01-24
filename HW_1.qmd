@@ -31,7 +31,9 @@ glimpse(algae)
 ## 1 Descriptive Summary Statistics
 
 ### a)
-Autumn has 40 observations, Spring has 53, Summer has 45, and Winter has 62. 
+
+Autumn has 40 observations, Spring has 53, Summer has 45, and Winter has 62.
+
 ```{r}
 algae %>% group_by(season) %>% summarise(length(size))
 ```
@@ -58,7 +60,8 @@ kableExtra::kable(chems)
 
 ### c)
 
-The chemicals with lower overall variance values tend to have means and medians that are more similar than the chemicals with much higher variance values. Also, when sorted in order of smallest to largest variance values, the MAD values tend to follow almost the exact same pattern of smallest to largest, indicating how both variance and MAD show the spread of the data.  
+The chemicals with lower overall variance values tend to have means and medians that are more similar than the chemicals with much higher variance values. Also, when sorted in order of smallest to largest variance values, the MAD values tend to follow almost the exact same pattern of smallest to largest, indicating how both variance and MAD show the spread of the data.
+
 ```{r}
 medians <- sapply(chemicals, median, na.rm = TRUE)
 medians_df <- data.frame(medians, chems)
@@ -82,7 +85,7 @@ print(all)
 
 ### a)
 
-The distribution is skewed slightly left, with a normal-appearing shape. 
+The distribution is skewed slightly left, with a normal-appearing shape.
 
 ```{r}
 ggplot(chemicals, aes(mxPH, after_stat(density)))+
@@ -91,7 +94,9 @@ ggplot(chemicals, aes(mxPH, after_stat(density)))+
   ggtitle("Histogram of mxPH")
 
 ```
+
 ### b)
+
 ```{r}
 ggplot(algae, aes(mxPH))+
   geom_histogram(aes(y = stat(density))) +
@@ -155,10 +160,17 @@ glimpse(algae.del)
 ```
 
 ## 4. a)
+
 ![Q4](q4.png)
+
 ## 5.
 
-Bias()
+![Q5 Part 1](q5_1.png)
+![Q5 Part 2](q5_2.png)
+
+## 6. 
+
+![Q6](q6.png)
 
 ## 7.
 
