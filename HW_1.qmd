@@ -83,7 +83,7 @@ all <- right_join(mad, medians_df)
 
 ### a)
 
-The distribution is skewed left
+The distribution is skewed slightly 
 
 ```{r}
 ggplot(chemicals, aes(mxPH, after_stat(density)))+
@@ -125,7 +125,9 @@ sum(na_count)
 ```
 
 ### b)
-There are 18 columns and 184 rows, so there are 3312 observations once the NAs are removed. 
+
+There are 18 columns and 184 rows, so there are 3312 observations once the NAs are removed.
+
 ```{r}
 nas <- is.na(algae)
 algae.del <- algae %>% 
