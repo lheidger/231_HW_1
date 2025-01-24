@@ -217,3 +217,15 @@ $d(x,z) \leq d(x,y) + d(y,z)$ and hence follows the law of triangle inequality
 By definition, $||x||_{\infty}$ = $max_i (|x|_i)$
 
 Therefore, $||x-y||_{\infty}$ = $max_i (|x_i-y_i|)$
+
+The maximum absolute value of any real number is always positive,
+
+so we have $||x-y||_{\infty} \geq 0$ and $||x-y||_{\infty}$ will be 0 only when $x_i = y_i$
+
+Thus it follows the law of positivity
+
+For the law of symmetry, we can see that the maximum absolute value will not change when $y_i = x_i$ , hence $d(x,y) = d(y,x)$
+
+For showing $||x - z||_\infty ≤ ||x - y||_\infty + ||y - z||_\infty$ , we take the maximum over all values of $i$ in $||x - z||_∞ = max{|x_i - z_i|} ≤ max{|x_i - y_i|} + max{|y_i - z_i|} = ||x - y||_∞ + ||y - z||_∞$ following the same substitution we did in 7.1
+
+Hence, this follows the triangle inequality law, and is a distance metric.
