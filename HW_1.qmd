@@ -102,7 +102,7 @@ ggplot(algae, aes(mxPH))+
   geom_histogram(aes(y = stat(density))) +
   geom_density() +
   geom_rug() +
-  ylab("probability")
+  ylab("probability")+
   ggtitle("Histogram of mxPH")
 ```
 
@@ -122,14 +122,19 @@ ggplot(a4_df, aes(a4, speed)) + geom_boxplot() +
 ### a)
 
 There are 33 missing values. Season, size, and speed have 0 missing values; mxPH has 1, mnO2, NO3, NH4, oPO4, and PO4 have 2; and Cl has 10 missing values.
+These 33 values are in 16 observations
 
 ```{r}
 na_count <-sapply(algae, function(y) sum(length(which(is.na(y)))))
 
 data.frame(na_count)
 sum(na_count)
+print
 ```
-
+```{r}
+missing_rows <- sum(!complete.cases(algae))
+missing_rows
+```
 ### b)
 
 There are 18 columns and 184 rows, so there are 3312 observations once the NAs are removed.
