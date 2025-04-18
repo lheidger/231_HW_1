@@ -165,10 +165,9 @@ glimpse(algae.del)
 
 ## 5.
 
-![Q5 Part 1](q5_1.png)
-![Q5 Part 2](q5_2.png)
+![Q5 Part 1](q5_1.png) ![Q5 Part 2](q5_2.png)
 
-## 6. 
+## 6.
 
 ![Q6](q6.png)
 
